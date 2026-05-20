@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Analytics } from '@vercel/analytics/react';
 import { HEROES } from './data/heroes';
 import { OFFICIAL_ITEMS } from './data/items';
 import { calculateBuild } from './lib/buildLogic';
@@ -5788,6 +5789,7 @@ function ItemSwapperModal({
           )}
         </div>
       </motion.div>
+      <Analytics />
     </div>
   );
 }
