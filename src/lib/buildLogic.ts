@@ -99,8 +99,17 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
     // Hard Mismatch Filters (-1000 points)
     if (isPhysical && isMagicHero) score -= 1000;
     if (isMagic && isPhysicalHero) score -= 1000;
+    
     // Evita oggetti da Tank puro se non si ha bisogno di difesa pesante e non si è tank
-    if (isDefense && !isTrueTank && !isSupport && isSquishy) score -= 50;
+    // Aumentato da -50 a -200 per bloccare del tutto i tank item sugli squishy, eccezione per Immortality
+    if (isDefense && isSquishy && !['immortality'].includes(item.id)) score -= 200;
+
+    // Se non ci sono tank avversari, penalizziamo la penetrazione e danni basati sugli HP
+    if (tankyThreat === 0) {
+      if (['malefic_roar', 'divine_glaive', 'demon_hunter_sword', 'wishing_lantern'].includes(item.id)) {
+        score -= 150;
+      }
+    }
 
     // SCORING LOGIC
     // =============
@@ -177,29 +186,31 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
     }
 
     if (burstMagThreat >= 1 && isDefense) {
-      if (item.id === 'athenas_shield') { score += 90; reason = "Protezione salvavita contro il burst e l'oneshot magico."; }
-      if (item.id === 'rose_gold_meteor' && isPhysicalHero && isSquishy) { score += 95; reason = "Fornisce uno scudo magico d'emergenza mantenendo l'output offensivo."; }
+      if (item.id === 'athenas_shield' && !isSquishy) { score += 90; reason = "Protezione salvavita contro il burst e l'oneshot magico."; }
+      if (item.id === 'rose_gold_meteor' && isPhysicalHero && isSquishy) { score += 120; reason = "Fornisce uno scudo magico d'emergenza mantenendo il massimo output offensivo contro il burst."; }
+      if (item.id === 'winter_crown' && isMagicHero && isSquishy) { score += 120; reason = "Ti rende intoccabile annullando completamente il burst magico letale."; }
     }
     
     if (magDamageThreat >= 2 && isDefense) {
-      if (item.id === 'radiant_armor') { score += 85; reason = "Riduce costantemente i danni magici continuati (DPS)."; }
+      if (item.id === 'radiant_armor' && !isSquishy) { score += 85; reason = "Riduce costantemente i danni magici continuati (DPS)."; }
     }
 
     if (burstPhysThreat >= 1 && isDefense) {
-      if (item.id === 'antique_cuirass') { score += 85; reason = "Riduce il potere d'attacco degli eroi fisici basati sulle abilità."; }
-      if (item.id === 'wind_of_nature' && userHero.role.includes('Marksman')) { score += 100; reason = "L'immunità fisica temporanea ti salva dai burst assassini."; }
+      if (item.id === 'antique_cuirass' && !isSquishy) { score += 85; reason = "Riduce il potere d'attacco degli eroi fisici basati sulle abilità."; }
+      if (item.id === 'wind_of_nature' && userHero.role.includes('Marksman')) { score += 120; reason = "L'immunità fisica temporanea è l'unica via per sopravvivere agli Assassini fisici."; }
+      if (item.id === 'winter_crown' && isMagicHero && isSquishy) { score += 120; reason = "Blocca completamente gli assalti fulminei degli Assassini o Combattenti."; }
     }
 
     if (autoAttackThreat >= 1 && isDefense) {
-      if (item.id === 'blade_armor') { score += 85; reason = "Riflette il danno dei tiratori avversari rallentandoli."; }
+      if (item.id === 'blade_armor' && !isSquishy) { score += 85; reason = "Riflette il danno dei tiratori avversari rallentandoli."; }
       if (item.id === 'dominance_ice' && !isSquishy) { score += 80; reason = "Rallenta drammaticamente la velocità d'attacco di chi ti sta vicino."; }
     }
 
     // Generic fallback scores to ensure 5 items are always picked
     if (score === 0) {
-      if (item.id === 'immortality' || item.id === 'brute_force_breastplate') score += 10;
-      if (isMagicHero && (item.id === 'holy_crystal' || item.id === 'blood_wings')) score += 15;
-      if (isPhysicalHero && (item.id === 'blade_of_despair' || item.id === 'malefic_roar')) score += 15;
+      if (item.id === 'immortality' || (item.id === 'brute_force_breastplate' && !isSquishy)) score += 10;
+      if (isMagicHero && (item.id === 'holy_crystal' || item.id === 'blood_wings')) score += 25; // Aumentato fallback offensivo
+      if (isPhysicalHero && (item.id === 'blade_of_despair' || item.id === 'endless_battle' || item.id === 'hunter_strike')) score += 25; // Aumentato fallback offensivo
     }
 
     if (score > 0) {
