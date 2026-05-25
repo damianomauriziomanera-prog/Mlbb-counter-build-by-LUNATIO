@@ -309,7 +309,11 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
 
   if (isTrueTank) emblemSug.tier3 = getTalent(3, 'concussive_blast');
   else if (isSupport) emblemSug.tier3 = getTalent(3, 'focusing_mark', 'brave_smite');
-  else if (isJungle || isPureAssassin || (isAttackSpeedHero && userHero.role.includes('Assassin'))) emblemSug.tier3 = getTalent(3, 'killing_spree', 'lethal_ignition');
+  else if (isJungle) {
+    if (isMagicHero) emblemSug.tier3 = getTalent(3, 'lethal_ignition', 'killing_spree');
+    else emblemSug.tier3 = getTalent(3, 'killing_spree', 'lethal_ignition');
+  }
+  else if (isPureAssassin || (isAttackSpeedHero && userHero.role.includes('Assassin'))) emblemSug.tier3 = getTalent(3, 'killing_spree', 'lethal_ignition');
   else if (isAttackSpeedHero || isCritHero) emblemSug.tier3 = getTalent(3, 'quantum_charge', 'weakness_finder');
   else if (isMagicHero) emblemSug.tier3 = getTalent(3, 'impure_rage', 'lethal_ignition');
   else emblemSug.tier3 = getTalent(3, 'quantum_charge', 'brave_smite');
