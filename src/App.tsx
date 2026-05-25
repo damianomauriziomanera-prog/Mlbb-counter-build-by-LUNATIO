@@ -18,6 +18,7 @@ import { EmblemEncyclopediaModal } from './components/Modals/EmblemEncyclopediaM
 import appChangelog from './data/appChangelog.json';
 import { MiniDraftMode } from './components/MiniDraftMode';
 import { calculatePowerSpike } from './lib/powerSpike';
+import GuidePage from './components/GuidePage';
 
 const getTagColor = (tag: string) => {
   const t = tag.toLowerCase();
@@ -4079,6 +4080,15 @@ const renderSavedBuildsView = (isInline = false) => {
             <List size={18} />
             <span>Patch & Changelog</span>
           </button>
+
+          <button 
+            type="button"
+            onClick={() => handleSetTab("guide")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${currentTab === "guide" ? "bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/30" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent"}`}
+          >
+            <Book size={18} />
+            <span>Guida Definitiva</span>
+          </button>
         </nav>
 
         {/* Compact Footer */}
@@ -4153,11 +4163,23 @@ const renderSavedBuildsView = (isInline = false) => {
             </span>
           )}
         </button>
+
+        <button 
+          onClick={() => handleSetTab("guide")}
+          className={`flex flex-col items-center gap-1 flex-1 py-1 px-1 rounded-lg active:scale-95 transition-all text-center ${currentTab === "guide" ? "text-fuchsia-400" : "text-slate-550"}`}
+        >
+          <Book size={18} />
+          <span className="text-[9px] font-black uppercase tracking-wider font-mono font-semibold">Guida</span>
+        </button>
       </div>
 
       {/* 🚀 MAIN CONTENT PANEL */}
       <div className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 space-y-8 animate-fadeIn overflow-x-hidden">
         
+        {currentTab === "guide" && (
+          <GuidePage />
+        )}
+
         {/* Render Tab 1: Builder */}
         {currentTab === "builder" && (
           <div className="space-y-6">
