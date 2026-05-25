@@ -89,7 +89,7 @@ export default function DraftSimulatorTab() {
                   {hero ? (
                     <>
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent"></div>
-                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full border border-blue-500/50 object-cover relative z-10" />
+                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full border border-blue-500/50 object-cover overflow-hidden relative z-10" />
                       <div className="ml-3 flex-1 relative z-10">
                         <div className="font-bold text-white leading-tight">{hero.name}</div>
                         <div className="text-[10px] text-blue-300 uppercase tracking-wider">{hero.role}</div>
@@ -185,7 +185,7 @@ export default function DraftSimulatorTab() {
                         <div className="font-bold text-white leading-tight">{hero.name}</div>
                         <div className="text-[10px] text-rose-300 uppercase tracking-wider">{hero.role}</div>
                       </div>
-                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full border border-rose-500/50 object-cover relative z-10" />
+                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full border border-rose-500/50 object-cover overflow-hidden relative z-10" />
                     </>
                   ) : (
                     <button 
@@ -239,10 +239,19 @@ export default function DraftSimulatorTab() {
                 <p className="text-xs text-slate-400 mb-3">Basato sul meta attuale, sui ruoli mancanti e sui counter nemici:</p>
                 <div className="grid grid-cols-3 gap-3">
                   {analysis.suggestions.map(hero => (
-                    <div key={hero.id} className="bg-slate-950 border border-slate-800 p-2 rounded-lg text-center cursor-pointer hover:border-amber-500/50 transition-colors" onClick={() => handleOpenModal('allied')}>
-                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 mx-auto rounded-full object-cover border border-slate-700 mb-2" />
+                    <button 
+                      key={hero.id} 
+                      className="bg-slate-950 border border-slate-800 p-2 rounded-lg text-center cursor-pointer hover:border-amber-500/50 transition-colors w-full" 
+                      onClick={() => {
+                        if (alliedTeam.length < 5) {
+                          setAlliedTeam([...alliedTeam, hero]);
+                        }
+                      }}
+                      title="Clicca per aggiungere al Team Alleato"
+                    >
+                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 mx-auto rounded-full object-cover overflow-hidden border border-slate-700 mb-2" />
                       <div className="text-xs font-bold text-white truncate">{hero.name}</div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -266,9 +275,9 @@ export default function DraftSimulatorTab() {
                   if (!ally || !enemy) return null;
                   return (
                     <div key={i} className="flex gap-3 bg-slate-950 border border-purple-500/20 p-3 rounded-lg items-center">
-                       <HeroImageWithFallback src={ally.iconUrl} name={ally.name} id={ally.id} className="w-10 h-10 rounded border border-blue-500/50" />
+                       <HeroImageWithFallback src={ally.iconUrl} name={ally.name} id={ally.id} className="w-10 h-10 rounded overflow-hidden border border-blue-500/50" />
                        <ArrowRight size={16} className="text-purple-500" />
-                       <HeroImageWithFallback src={enemy.iconUrl} name={enemy.name} id={enemy.id} className="w-10 h-10 rounded border border-rose-500/50" />
+                       <HeroImageWithFallback src={enemy.iconUrl} name={enemy.name} id={enemy.id} className="w-10 h-10 rounded overflow-hidden border border-rose-500/50" />
                        <div className="flex-1 ml-2">
                           <div className="text-xs font-bold text-white"><span className="text-blue-400">{ally.name}</span> distrugge <span className="text-rose-400">{enemy.name}</span></div>
                           <p className="text-[10px] text-slate-400 line-clamp-2">{c.reason}</p>
@@ -326,7 +335,7 @@ export default function DraftSimulatorTab() {
                       onClick={() => handleSelectHero(hero)}
                       className="group flex flex-col items-center gap-2 p-2 rounded-xl border border-slate-800 bg-slate-950 hover:border-amber-500 hover:bg-slate-900 transition-all text-center"
                     >
-                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full border border-slate-700 object-cover group-hover:border-amber-500 transition-colors" />
+                      <HeroImageWithFallback src={hero.iconUrl} name={hero.name} id={hero.id} className="w-12 h-12 rounded-full overflow-hidden border border-slate-700 object-cover group-hover:border-amber-500 transition-colors" />
                       <span className="text-[10px] font-bold text-slate-300 truncate w-full px-1">{hero.name}</span>
                     </button>
                   ))}
