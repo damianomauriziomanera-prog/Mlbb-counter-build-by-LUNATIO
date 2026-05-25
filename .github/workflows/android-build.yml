@@ -42,7 +42,17 @@ jobs:
         working-directory: ./android
         run: |
           chmod +x ./gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug > build_log.txt 2>&1 || (
+            echo "Build failed, committing log..."
+            cd ..
+            git config user.email "bot@lunatio.com"
+            git config user.name "Antigravity Bot"
+            cp android/build_log.txt .
+            git add build_log.txt
+            git commit -m "chore: upload build log"
+            git push origin HEAD:main
+            exit 1
+          )
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
