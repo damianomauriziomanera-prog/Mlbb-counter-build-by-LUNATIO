@@ -19,6 +19,7 @@ import appChangelog from './data/appChangelog.json';
 import { MiniDraftMode } from './components/MiniDraftMode';
 import { calculatePowerSpike } from './lib/powerSpike';
 import GuidePage from './components/GuidePage';
+import CountersPage from './components/CountersPage';
 
 const getTagColor = (tag: string) => {
   const t = tag.toLowerCase();
@@ -4042,6 +4043,15 @@ const renderSavedBuildsView = (isInline = false) => {
 
           <button 
             type="button"
+            onClick={() => handleSetTab("counters")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${currentTab === "counters" ? "bg-rose-500/10 text-rose-400 border border-rose-500/30 shadow-[0_0_10px_rgba(244,63,94,0.1)]" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent"}`}
+          >
+            <Crosshair size={18} className={currentTab === "counters" ? "text-rose-500" : ""} />
+            <span>Cheat Sheet Eroi</span>
+          </button>
+
+          <button 
+            type="button"
             onClick={() => handleSetTab("items")}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${currentTab === "items" ? "bg-emerald-500/10 text-emerald-450 border border-emerald-500/30" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent"}`}
           >
@@ -4136,6 +4146,14 @@ const renderSavedBuildsView = (isInline = false) => {
         </button>
 
         <button 
+          onClick={() => handleSetTab("counters")}
+          className={`flex flex-col items-center gap-1 flex-1 py-1 px-1 rounded-lg active:scale-95 transition-all text-center ${currentTab === "counters" ? "text-rose-400" : "text-slate-500"}`}
+        >
+          <Crosshair size={18} />
+          <span className="text-[9px] font-black uppercase tracking-wider font-mono">Schede</span>
+        </button>
+
+        <button 
           onClick={() => handleSetTab("items")}
           className={`flex flex-col items-center gap-1 flex-1 py-1 px-1 rounded-lg active:scale-95 transition-all text-center ${currentTab === "items" ? "text-emerald-450" : "text-slate-550"}`}
         >
@@ -4178,6 +4196,10 @@ const renderSavedBuildsView = (isInline = false) => {
         
         {currentTab === "guide" && (
           <GuidePage />
+        )}
+
+        {currentTab === "counters" && (
+          <CountersPage />
         )}
 
         {/* Render Tab 1: Builder */}
