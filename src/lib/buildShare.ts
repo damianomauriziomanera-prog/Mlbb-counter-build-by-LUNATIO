@@ -4,15 +4,13 @@ const PREFIX = "LUNATIO-";
 
 export const exportBuildToCode = (build: SavedBuild): string => {
   try {
-    // Rimuoviamo dati non essenziali per mantenere il codice corto
-    // ma manteniamo userHeroId, lane, customTalents, e i 6 item (id) + emblem
     const minimalData = {
       h: build.userHeroId,
       l: build.lane,
       e: build.results.emblem.id,
-      t1: build.customTalents?.tier1?.id,
-      t2: build.customTalents?.tier2?.id,
-      t3: build.customTalents?.tier3?.id,
+      t1: build.results.emblem.tier1?.id,
+      t2: build.results.emblem.tier2?.id,
+      t3: build.results.emblem.tier3?.id,
       i: build.results.items.map(slot => slot.item ? slot.item.id : null),
       s: build.results.spell.id
     };

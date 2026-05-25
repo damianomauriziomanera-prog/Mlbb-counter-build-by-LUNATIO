@@ -23,10 +23,7 @@ import { exportBuildToCode, importBuildFromCode } from './lib/buildShare';
 // Lazy Loaded Heavy Components
 const GuidePage = lazy(() => import('./components/GuidePage'));
 const CountersPage = lazy(() => import('./components/CountersPage'));
-const HeroEncyclopediaModal = lazy(() => import('./components/Modals/HeroEncyclopediaModal').then(module => ({ default: module.HeroEncyclopediaModal })));
-const ItemEncyclopediaModal = lazy(() => import('./components/Modals/ItemEncyclopediaModal').then(module => ({ default: module.ItemEncyclopediaModal })));
 const EmblemEncyclopediaModal = lazy(() => import('./components/Modals/EmblemEncyclopediaModal').then(module => ({ default: module.EmblemEncyclopediaModal })));
-const PatchNotesModal = lazy(() => import('./components/Modals/PatchNotesModal').then(module => ({ default: module.PatchNotesModal })));
 
 const getTagColor = (tag: string) => {
   const t = tag.toLowerCase();
@@ -3963,29 +3960,29 @@ const renderMetaView = (isInline = false) => {
 
     const items = data.itemIds.map((id: string) => {
       const item = OFFICIAL_ITEMS.find(i => i.id === id) || null;
-      return { item };
+      return { item, reason: 'Importato' };
     });
 
-    const emblem = Object.values(EMBLEMS).find(e => e.id === data.emblemId) || EMBLEMS.BASIC;
-    const spell = OFFICIAL_SPELLS.find((s: any) => s.id === data.spellId) || null;
+    const emblemBase = Object.values(EMBLEMS).find(e => e.id === data.emblemId) || EMBLEMS.BASIC;
+    const tier1 = GLOBAL_TALENTS.tier1.find(t => t.id === data.tier1Id) || GLOBAL_TALENTS.tier1[0];
+    const tier2 = GLOBAL_TALENTS.tier2.find(t => t.id === data.tier2Id) || GLOBAL_TALENTS.tier2[0];
+    const tier3 = GLOBAL_TALENTS.tier3.find(t => t.id === data.tier3Id) || GLOBAL_TALENTS.tier3[0];
+    
+    const emblem = { ...emblemBase, tier1, tier2, tier3 };
+    const spell = OFFICIAL_SPELLS.find((s: any) => s.id === data.spellId) || OFFICIAL_SPELLS[0];
 
     const newBuild: SavedBuild = {
       id: `imported_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
       timestamp: data.timestamp,
       userHeroId: data.userHeroId,
-      lane: data.lane,
-      customTalents: {
-        tier1: GLOBAL_TALENTS.find(t => t.id === data.tier1Id),
-        tier2: GLOBAL_TALENTS.find(t => t.id === data.tier2Id),
-        tier3: GLOBAL_TALENTS.find(t => t.id === data.tier3Id),
-      },
+      enemyIds: [], // Placeholder since it's missing from import
+      lane: data.lane || 'Mid',
       results: {
-        items: items,
-        emblem: emblem,
-        spell: spell || { id: 'execute', name: 'Execute', iconUrl: 'https://static.wikia.nocookie.net/mobile-legends/images/c/c1/Execute.png', description: '' },
-        score: 0,
-        tags: ['Importato'],
-        recommendation: 'Build Importata tramite Codice.'
+        items: items as any,
+        emblem: emblem as any,
+        spell: spell,
+        stats: {},
+        statProgression: [],
       }
     };
 
