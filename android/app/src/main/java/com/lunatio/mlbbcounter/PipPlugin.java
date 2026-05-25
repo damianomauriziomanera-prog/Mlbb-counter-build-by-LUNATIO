@@ -13,12 +13,21 @@ public class PipPlugin extends Plugin {
     @PluginMethod
     public void enterPip(PluginCall call) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Rational aspectRatio = new Rational(9, 16);
-            PictureInPictureParams params = new PictureInPictureParams.Builder()
-                .setAspectRatio(aspectRatio)
-                .build();
-            getActivity().enterPictureInPictureMode(params);
-            call.resolve();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Rational aspectRatio = new Rational(9, 16);
+                        PictureInPictureParams params = new PictureInPictureParams.Builder()
+                            .setAspectRatio(aspectRatio)
+                            .build();
+                        getActivity().enterPictureInPictureMode(params);
+                        call.resolve();
+                    } catch (Exception e) {
+                        call.reject(e.getMessage());
+                    }
+                }
+            });
         } else {
             call.reject("Picture-in-Picture is not supported on this Android version");
         }
