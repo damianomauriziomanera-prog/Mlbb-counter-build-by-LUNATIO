@@ -1,0 +1,60 @@
+name: Android APK Cloud Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Web App
+        run: npm run build
+
+      - name: Sync Capacitor Android
+        run: npx cap sync android || echo "Sync failed, falling back to manual copy..."
+
+      - name: Manual Web Asset Copy
+        run: |
+          mkdir -p android/app/src/main/assets/public
+          cp -r dist/* android/app/src/main/assets/public/
+
+      - name: Build Android APK
+        working-directory: ./android
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug > build_log.txt 2>&1 || (
+            echo "::error::-- INIZIO ERRORE GRADLE --"
+            grep -A 15 -i "error:" build_log.txt > error_summary.txt || echo "" > error_summary.txt
+            grep -A 15 -i "FAILED" build_log.txt >> error_summary.txt || true
+            while IFS= read -r line; do
+              echo "::error::$line"
+            done < error_summary.txt
+            echo "::error::-- FINE ERRORE GRADLE --"
+            exit 1
+          )
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
