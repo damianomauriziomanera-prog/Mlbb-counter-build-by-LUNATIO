@@ -4213,8 +4213,14 @@ const renderSavedBuildsView = (isInline = false) => {
             {currentUser ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold bg-emerald-500/10 p-2 rounded-lg">
-                  <img src={currentUser.photoURL || ''} alt="" className="w-5 h-5 rounded-full" />
-                  <span className="truncate">{currentUser.displayName}</span>
+                  {currentUser.photoURL ? (
+                    <img src={currentUser.photoURL} alt="" className="w-5 h-5 rounded-full" />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-[10px]">
+                      {currentUser.displayName?.charAt(0) || 'U'}
+                    </div>
+                  )}
+                  <span className="truncate">{currentUser.displayName || 'Utente'}</span>
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => handleManualSync(savedBuilds)} disabled={isSyncing} className="flex-1 flex items-center justify-center gap-1 p-2 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg text-xs font-bold transition-all">
