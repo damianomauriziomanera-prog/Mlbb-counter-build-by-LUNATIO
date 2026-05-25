@@ -48,23 +48,32 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
   let boots = isMagicHero ? ITEMS.MAGIC_SHOES : ITEMS.WARRIOR_BOOTS;
   let bootsReason = "Calzature base per ottimizzare le tue performance.";
 
-  if (ccThreat >= 2 || magDamageThreat > physDamageThreat) {
-    boots = ITEMS.TOUGH_BOOTS;
-    bootsReason = "La Tenacia offerta dai Tough Boots è vitale contro i CC e i danni magici avversari.";
-  } else if (autoAttackThreat >= 2 && !isTrueTank && !isSupport) {
-    boots = ITEMS.WARRIOR_BOOTS;
-    bootsReason = "Contrasta pesantemente i tiratori avversari e chi basa tutto sugli attacchi base.";
-  } else if (isAttackSpeedHero) {
-    boots = ITEMS.SWIFT_BOOTS;
-    bootsReason = "Raggiungi prima i breakpoint di velocità d'attacco ottimali.";
-  } else if (isMagicHero && !isSupport && !isTrueTank) {
-    boots = ITEMS.ARCANE_BOOTS;
-    if (/cd|spam/i.test(myTags)) boots = ITEMS.MAGIC_SHOES;
-    bootsReason = "Fornisce Penetrazione Magica (o CDR) per impattare da subito in Early Game.";
-  } else if (isSupport || isTrueTank) {
+  if (isSquishy) {
+    if (isMagicHero) {
+      boots = ITEMS.ARCANE_BOOTS;
+      if (/cd|spam/i.test(myTags)) boots = ITEMS.MAGIC_SHOES;
+      bootsReason = "Penetrazione Magica (o CDR) per massimizzare l'impatto offensivo in Early Game.";
+    } else if (isAttackSpeedHero) {
+      boots = ITEMS.SWIFT_BOOTS;
+      bootsReason = "Raggiungi prima i breakpoint di velocità d'attacco ottimali.";
+    } else {
+      // Assassini o Tiratori Burst (Granger, Brody, Clint, Saber)
+      boots = ITEMS.MAGIC_SHOES;
+      bootsReason = "Riduzione Ricarica per poter spammare le tue abilità letali più spesso.";
+    }
+    // Solo in situazioni estreme diamo scarpe difensive agli squishy
+    if (ccThreat >= 3) {
+      boots = ITEMS.TOUGH_BOOTS;
+      bootsReason = "I troppi CC nemici rendono vitale la Tenacia per non essere shottati senza poter reagire.";
+    }
+  } else {
+    // Tank, Support, Fighter
     boots = ITEMS.TOUGH_BOOTS; 
-    if (physDamageThreat >= 3) boots = ITEMS.WARRIOR_BOOTS;
-    bootsReason = "Scelta difensiva adattata alle fonti di danno nemiche dominanti.";
+    bootsReason = "La Tenacia offerta dai Tough Boots è vitale contro i CC e i danni magici avversari.";
+    if (physDamageThreat > magDamageThreat + 1 || (autoAttackThreat >= 2 && ccThreat < 2)) {
+      boots = ITEMS.WARRIOR_BOOTS;
+      bootsReason = "Contrasta pesantemente i danni fisici e i tiratori avversari.";
+    }
   }
 
   if (isJungle) {
