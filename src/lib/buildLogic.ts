@@ -335,14 +335,22 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
     }
   } else {
     if (userHero.role.includes('Marksman')) {
-      recommendedSpell = SPELLS.INSPIRE;
+      if (['granger', 'brody', 'clint', 'beatrix'].includes(userHero.id)) {
+        recommendedSpell = SPELLS.FLICKER; // I tiratori a raffica/skill usano sempre il Flicker
+      } else {
+        recommendedSpell = SPELLS.INSPIRE; // Tiratori a velocità d'attacco
+        if (burstPhysThreat >= 1 || burstMagThreat >= 1) recommendedSpell = SPELLS.FLICKER;
+      }
       if (ccThreat >= 3) recommendedSpell = SPELLS.PURIFY;
-      else if (burstPhysThreat >= 1 || burstMagThreat >= 1) recommendedSpell = SPELLS.FLICKER;
     } else if (userHero.role.includes('Mage')) {
        recommendedSpell = ccThreat >= 2 ? SPELLS.PURIFY : (userHero.counterTags.some(t => /dash/i.test(t)) ? SPELLS.FLAMESHOT : SPELLS.FLICKER);
     } else if (userHero.role.includes('Fighter')) {
-       recommendedSpell = SPELLS.VENGEANCE;
-       if (!userHero.counterTags.some(t => /dash|mobility|jump/i.test(t))) recommendedSpell = SPELLS.FLICKER;
+       if (['yu_zhong', 'arlott', 'benedetta', 'badang', 'grock'].includes(userHero.id)) {
+         recommendedSpell = SPELLS.PETRIFY; // Combattenti la cui combo dipende dalla pietrificazione
+       } else {
+         recommendedSpell = SPELLS.VENGEANCE;
+         if (!userHero.counterTags.some(t => /dash|mobility|jump/i.test(t))) recommendedSpell = SPELLS.FLICKER;
+       }
     } else if (userHero.role.includes('Assassin')) {
        recommendedSpell = SPELLS.EXECUTE;
        if (ccThreat >= 3) recommendedSpell = SPELLS.PURIFY;
