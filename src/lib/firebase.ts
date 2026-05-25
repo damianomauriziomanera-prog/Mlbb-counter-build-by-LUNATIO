@@ -6,12 +6,12 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 // Inserisci qui i dati del tuo progetto Firebase (prendili da console.firebase.google.com)
 // Per sicurezza, in produzione dovresti usare variabili d'ambiente (import.meta.env.VITE_FIREBASE_API_KEY)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "INSERISCI_API_KEY",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "tuo-progetto.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "tuo-progetto",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "tuo-progetto.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "0000000000",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:0000000000:web:abcdef123456"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBohpmm2HaaSs4MFTxLifUvxj72GEEmifk",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "mlbb-counter-build.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "mlbb-counter-build",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "mlbb-counter-build.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "449940224601",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:449940224601:web:b8ce229d93217594abcf48"
 };
 
 let app: FirebaseApp | null = null;
