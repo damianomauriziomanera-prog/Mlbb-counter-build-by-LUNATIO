@@ -1,5 +1,5 @@
 import { safeStorage } from './lib/safeStorage';
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { registerPlugin } from '@capacitor/core';
 const Pip = registerPlugin<any>('Pip');
 import { motion, AnimatePresence } from 'motion/react';
@@ -14,12 +14,17 @@ import { META_HEROES } from './data/metaData';
 import { HeroGrid } from './components/HeroGrid';
 import { HeroImageWithFallback } from './components/Common/HeroImageWithFallback';
 import { MatchAnalyzerModal } from './components/MatchAnalyzerModal';
-import { EmblemEncyclopediaModal } from './components/Modals/EmblemEncyclopediaModal';
 import appChangelog from './data/appChangelog.json';
 import { MiniDraftMode } from './components/MiniDraftMode';
 import { calculatePowerSpike } from './lib/powerSpike';
-import GuidePage from './components/GuidePage';
-import CountersPage from './components/CountersPage';
+
+// Lazy Loaded Heavy Components
+const GuidePage = lazy(() => import('./components/GuidePage'));
+const CountersPage = lazy(() => import('./components/CountersPage'));
+const HeroEncyclopediaModal = lazy(() => import('./components/Modals/HeroEncyclopediaModal').then(module => ({ default: module.HeroEncyclopediaModal })));
+const ItemEncyclopediaModal = lazy(() => import('./components/Modals/ItemEncyclopediaModal').then(module => ({ default: module.ItemEncyclopediaModal })));
+const EmblemEncyclopediaModal = lazy(() => import('./components/Modals/EmblemEncyclopediaModal').then(module => ({ default: module.EmblemEncyclopediaModal })));
+const PatchNotesModal = lazy(() => import('./components/Modals/PatchNotesModal').then(module => ({ default: module.PatchNotesModal })));
 
 const getTagColor = (tag: string) => {
   const t = tag.toLowerCase();
@@ -4194,13 +4199,25 @@ const renderSavedBuildsView = (isInline = false) => {
       {/* 🚀 MAIN CONTENT PANEL */}
       <div className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 space-y-8 animate-fadeIn overflow-x-hidden">
         
-        {currentTab === "guide" && (
-          <GuidePage />
-        )}
+        <Suspense fallback={
+          <div className="w-full flex items-center justify-center p-20 text-slate-500">
+            <Loader2 size={32} className="animate-spin text-fuchsia-500" />
+          </div>
+        }>
+          {currentTab === "guide" && (
+            <GuidePage />
+          )}
+        </Suspense>
 
-        {currentTab === "counters" && (
-          <CountersPage />
-        )}
+        <Suspense fallback={
+          <div className="w-full flex items-center justify-center p-20 text-slate-500">
+            <Loader2 size={32} className="animate-spin text-rose-500" />
+          </div>
+        }>
+          {currentTab === "counters" && (
+            <CountersPage />
+          )}
+        </Suspense>
 
         {/* Render Tab 1: Builder */}
         {currentTab === "builder" && (
@@ -5855,25 +5872,31 @@ const renderSavedBuildsView = (isInline = false) => {
       )}
 
       {/* Render Tab 3: Heroes Inline */}
-      {currentTab === "heroes" && (
-        <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
-          <HeroEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
-        </div>
-      )}
+      <Suspense fallback={null}>
+        {currentTab === "heroes" && (
+          <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
+            <HeroEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
+          </div>
+        )}
+      </Suspense>
 
       {/* Render Tab 4: Items Inline */}
-      {currentTab === "items" && (
-        <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
-          <ItemEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
-        </div>
-      )}
+      <Suspense fallback={null}>
+        {currentTab === "items" && (
+          <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
+            <ItemEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
+          </div>
+        )}
+      </Suspense>
 
       {/* Render Tab Emblems Inline */}
-      {currentTab === "emblems" && (
-        <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
-          <EmblemEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
-        </div>
-      )}
+      <Suspense fallback={null}>
+        {currentTab === "emblems" && (
+          <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
+            <EmblemEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
+          </div>
+        )}
+      </Suspense>
 
       {/* Render Tab 5: Saved Inline */}
       {currentTab === "saved" && (
@@ -5883,24 +5906,26 @@ const renderSavedBuildsView = (isInline = false) => {
       )}
 
       {/* Render Tab 6: Patch & Changelog Inline */}
-      {currentTab === "changelog" && (
-        <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
-          <PatchNotesModal 
-            isOpen={true} 
-            onClose={handleCloseTab} 
-            inline={true}
-            currentPatch={gamePatchVersion}
-            appPatchVersion={appPatchVersion}
-            setAppPatchVersion={setAppPatchVersion}
-            setGamePatchVersion={setGamePatchVersion}
-            appPatchHistory={appPatchHistory}
-            setAppPatchHistory={setAppPatchHistory}
-            gamePatchHistory={gamePatchHistory}
-            setGamePatchHistory={setGamePatchHistory}
-            defaultSubTab={patchModalSubTab}
-          />
-        </div>
-      )}
+      <Suspense fallback={null}>
+        {currentTab === "changelog" && (
+          <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
+            <PatchNotesModal 
+              isOpen={true} 
+              onClose={handleCloseTab} 
+              inline={true}
+              currentPatch={gamePatchVersion}
+              appPatchVersion={appPatchVersion}
+              setAppPatchVersion={setAppPatchVersion}
+              setGamePatchVersion={setGamePatchVersion}
+              appPatchHistory={appPatchHistory}
+              setAppPatchHistory={setAppPatchHistory}
+              gamePatchHistory={gamePatchHistory}
+              setGamePatchHistory={setGamePatchHistory}
+              defaultSubTab={patchModalSubTab}
+            />
+          </div>
+        )}
+      </Suspense>
 
       </div> {/* Closes Main Content Panel */}
 
