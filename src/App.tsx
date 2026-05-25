@@ -10,7 +10,7 @@ import { simulateLaneWinRate } from './lib/laneSimulator';
 import { Hero, BuildSlot, Item, Lane, RecommendedBuild, SavedBuild, MetaHero, Talent } from './types';
 import { EMBLEMS, GLOBAL_TALENTS } from './data/emblems';
 import { OFFICIAL_SPELLS } from './data/spells';
-import { Sword, Shield, Book, Scroll, AlertCircle, RefreshCw, Crosshair, ChevronsDown, CloudDownload, Loader2, CheckCircle, Search, X, BookOpen, Info, Sparkles, Filter, Users, HelpCircle, Activity, Heart, Target, Zap, Copy, Save, Share2, Trash2, TrendingUp, Trophy, BarChart3, ChevronDown, ChevronUp, ChevronRight, LayoutGrid, List, AlertTriangle, Star, Wrench, Plus, Youtube } from 'lucide-react';
+import { Sword, Shield, Book, Scroll, AlertCircle, RefreshCw, Crosshair, ChevronsDown, CloudDownload, Loader2, CheckCircle, Search, X, BookOpen, Info, Sparkles, Filter, Users, HelpCircle, Activity, Heart, Target, Zap, Copy, Save, Share2, Trash2, TrendingUp, Trophy, BarChart3, ChevronDown, ChevronUp, ChevronRight, LayoutGrid, List, AlertTriangle, Star, Wrench, Plus, Youtube, Swords } from 'lucide-react';
 import { META_HEROES } from './data/metaData';
 import { HeroGrid } from './components/HeroGrid';
 import { HeroImageWithFallback } from './components/Common/HeroImageWithFallback';
@@ -23,6 +23,7 @@ import { exportBuildToCode, importBuildFromCode } from './lib/buildShare';
 // Lazy Loaded Heavy Components
 const GuidePage = lazy(() => import('./components/GuidePage'));
 const CountersPage = lazy(() => import('./components/CountersPage'));
+const DraftSimulatorTab = lazy(() => import('./components/Tabs/DraftSimulatorTab'));
 const EmblemEncyclopediaModal = lazy(() => import('./components/Modals/EmblemEncyclopediaModal').then(module => ({ default: module.EmblemEncyclopediaModal })));
 
 const getTagColor = (tag: string) => {
@@ -4134,6 +4135,18 @@ const renderSavedBuildsView = (isInline = false) => {
             <Sword size={18} />
             <span>Counter Builder</span>
           </button>
+          
+          <div className="my-2 border-t border-slate-800"></div>
+          
+          <button
+            onClick={() => { setCurrentTab('draft'); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              currentTab === 'draft' ? 'bg-gradient-to-r from-rose-600 to-purple-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.4)]' : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <Swords size={20} />
+            <span>Arena Draft 5v5</span>
+          </button>
 
           <button 
             type="button"
@@ -6005,6 +6018,19 @@ const renderSavedBuildsView = (isInline = false) => {
         {currentTab === "emblems" && (
           <div className="w-full animate-fadeIn bg-slate-900 border border-slate-850 rounded-2xl flex flex-col overflow-hidden shadow-xl">
             <EmblemEncyclopediaModal isOpen={true} onClose={handleCloseTab} inline={true} />
+          </div>
+        )}
+      </Suspense>
+
+      {/* Render Tab Draft Simulator */}
+      <Suspense fallback={
+        <div className="flex items-center justify-center h-full text-rose-500 py-20">
+          <Loader2 className="animate-spin w-10 h-10" />
+        </div>
+      }>
+        {currentTab === "draft" && (
+          <div className="w-full animate-fadeIn">
+            <DraftSimulatorTab />
           </div>
         )}
       </Suspense>
