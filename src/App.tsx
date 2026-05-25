@@ -10,8 +10,12 @@ import { simulateLaneWinRate } from './lib/laneSimulator';
 import { Hero, BuildSlot, Item, Lane, RecommendedBuild, SavedBuild, MetaHero, Talent } from './types';
 import { EMBLEMS, GLOBAL_TALENTS } from './data/emblems';
 import { OFFICIAL_SPELLS } from './data/spells';
-import { Sword, Shield, Book, Scroll, AlertCircle, RefreshCw, Crosshair, ChevronsDown, CloudDownload, Loader2, CheckCircle, Search, X, BookOpen, Info, Sparkles, Filter, Users, HelpCircle, Activity, Heart, Target, Zap, Copy, Save, Share2, Trash2, TrendingUp, Trophy, BarChart3, ChevronDown, ChevronUp, ChevronRight, LayoutGrid, List, AlertTriangle, Star, Wrench, Plus, Youtube, Swords } from 'lucide-react';
+import { Sword, Shield, Book, Scroll, AlertCircle, RefreshCw, Crosshair, ChevronsDown, CloudDownload, Loader2, CheckCircle, Search, X, BookOpen, Info, Sparkles, Filter, Users, HelpCircle, Activity, Heart, Target, Zap, Copy, Save, Share2, Trash2, TrendingUp, Trophy, BarChart3, ChevronDown, ChevronUp, ChevronRight, LayoutGrid, List, AlertTriangle, Star, Wrench, Plus, Youtube, Swords, Camera, Cloud, LogOut } from 'lucide-react';
 import { META_HEROES } from './data/metaData';
+import { captureElementAsImage } from './lib/socialShare';
+import { auth } from './lib/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { loginWithGoogle, logout, syncBuildsToCloud, fetchBuildsFromCloud, mergeBuilds } from './lib/cloudStorage';
 import { HeroGrid } from './components/HeroGrid';
 import { HeroImageWithFallback } from './components/Common/HeroImageWithFallback';
 import { MatchAnalyzerModal } from './components/MatchAnalyzerModal';
@@ -1707,6 +1711,7 @@ function PatchNotesModal({
                         </div>
                       )}
 
+
                       {/* Simulation Trigger button */}
                       <button
                         type="button"
@@ -2368,6 +2373,12 @@ function getHeroMetaStatus(hero: Hero, currentLane: Lane, liveMeta: MetaHero[]):
 }
 
 export default function App() {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+
+
+
   const [userHeroId, setUserHeroId] = useState<string>('');
   const [lane, setLane] = useState<Lane>('Exp');
   const [enemyIds, setEnemyIds] = useState<string[]>([]);
@@ -2477,6 +2488,57 @@ export default function App() {
   const [metaSortDirection, setMetaSortDirection] = useState<'asc' | 'desc'>('desc');
   const [selectedMetaHero, setSelectedMetaHero] = useState<MetaHero | null>(null);
   const [savedBuilds, setSavedBuilds] = useState<SavedBuild[]>([]);
+
+  const handleCloudSync = async (user: User, currentBuilds: SavedBuild[]) => {
+    setIsSyncing(true);
+    try {
+      const cloudBuilds = await fetchBuildsFromCloud(user.uid);
+      if (cloudBuilds && cloudBuilds.length > 0) {
+        const merged = mergeBuilds(currentBuilds, cloudBuilds);
+        setSavedBuilds(merged);
+        safeStorage.setItem('mlbb_saved_builds', JSON.stringify(merged));
+        await syncBuildsToCloud(user.uid, merged);
+      } else {
+        if (currentBuilds.length > 0) {
+          await syncBuildsToCloud(user.uid, currentBuilds);
+        }
+      }
+    } catch (e) {
+      console.error("Sync error", e);
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const handleManualSync = async (currentBuilds: SavedBuild[]) => {
+    if (currentUser) {
+      await handleCloudSync(currentUser, currentBuilds);
+      alert("Sincronizzazione completata!");
+    } else {
+      const user = await loginWithGoogle();
+      if (user) {
+         setCurrentUser(user);
+         await handleCloudSync(user, currentBuilds);
+         alert("Accesso effettuato con successo!");
+      }
+    }
+  };
+
+  // Monitor auth state (con un solo dipendente o montaggio iniziale)
+  useEffect(() => {
+    if (auth) {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+        // Usa una funzione funzionale o preleva da safeStorage se savedBuilds è vuoto al mount
+        if (user) {
+           const stored = safeStorage.getItem('mlbb_saved_builds');
+           const initialBuilds = stored ? JSON.parse(stored) : [];
+           handleCloudSync(user, initialBuilds);
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, []);
   const [isUpdating, setIsUpdating] = useState(false);
   const [gamePatchVersion, setGamePatchVersion] = useState<string>(() => {
     return safeStorage.getItem('mlbb_game_patch_version') || '1.8.92';
@@ -4031,7 +4093,7 @@ const renderSavedBuildsView = (isInline = false) => {
                     {savedBuilds.map(saved => {
                       const hero = HEROES.find(h => h.id === saved.userHeroId);
                       return (
-                         <div key={saved.id} className="bg-slate-950 border border-slate-800 rounded-xl p-4 hover:border-amber-500/30 transition-all flex flex-col md:flex-row items-center gap-4 relative group">
+                         <div id={`saved-build-${saved.id}`} key={saved.id} className="bg-slate-950 border border-slate-800 rounded-xl p-4 hover:border-amber-500/30 transition-all flex flex-col md:flex-row items-center gap-4 relative group">
                           <div className="flex items-center gap-3 shrink-0">
                             <HeroImageWithFallback 
                               src={hero?.iconUrl} 
@@ -4059,6 +4121,13 @@ const renderSavedBuildsView = (isInline = false) => {
                               title="Esporta Codice Condivisione"
                             >
                               <Share2 size={16} />
+                            </button>
+                            <button 
+                              onClick={() => captureElementAsImage(`saved-build-${saved.id}`, `Build-${hero?.name || 'MLBB'}`)}
+                              className="p-2 text-fuchsia-400 hover:text-white hover:bg-fuchsia-500/80 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-lg transition-all"
+                              title="Scarica Immagine Social"
+                            >
+                              <Camera size={16} />
                             </button>
                             <button 
                               onClick={() => loadSavedBuild(saved)}
@@ -4135,6 +4204,37 @@ const renderSavedBuildsView = (isInline = false) => {
             <Sword size={18} />
             <span>Counter Builder</span>
           </button>
+          
+          <div className="my-2 border-t border-slate-800"></div>
+
+          {/* CLOUD SAVE SECTION */}
+          <div className="px-4 py-2">
+            <h3 className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">Cloud Save</h3>
+            {currentUser ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold bg-emerald-500/10 p-2 rounded-lg">
+                  <img src={currentUser.photoURL || ''} alt="" className="w-5 h-5 rounded-full" />
+                  <span className="truncate">{currentUser.displayName}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => handleManualSync(savedBuilds)} disabled={isSyncing} className="flex-1 flex items-center justify-center gap-1 p-2 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg text-xs font-bold transition-all">
+                    {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <Cloud size={12} />} Sync
+                  </button>
+                  <button onClick={() => logout()} className="p-2 bg-slate-800 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
+                    <LogOut size={12} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button 
+                onClick={() => handleManualSync(savedBuilds)}
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold transition-all border border-slate-700 hover:border-slate-500"
+              >
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" className="w-4 h-4" />
+                Accedi con Google
+              </button>
+            )}
+          </div>
           
           <div className="my-2 border-t border-slate-800"></div>
           

@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Hero } from '../../types';
 import { HEROES } from '../../data/heroes';
 import { analyzeDraft, DraftAnalysis } from '../../lib/draftLogic';
-import { Search, Shield, X, Swords, AlertTriangle, Lightbulb, Info, Zap, ArrowRight, Target } from 'lucide-react';
+import { Search, Shield, X, Swords, AlertTriangle, Lightbulb, Info, Zap, ArrowRight, Target, Share2, Loader2 } from 'lucide-react';
+import { captureElementAsImage } from '../../lib/socialShare';
 import { HeroImageWithFallback } from '../Common/HeroImageWithFallback';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -14,6 +15,7 @@ export default function DraftSimulatorTab() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [targetTeam, setTargetTeam] = useState<'allied' | 'enemy'>('allied');
   const [search, setSearch] = useState('');
+  const [isSharing, setIsSharing] = useState(false);
 
   const analysis: DraftAnalysis = useMemo(() => {
     return analyzeDraft(alliedTeam, enemyTeam);
@@ -58,7 +60,7 @@ export default function DraftSimulatorTab() {
     <div className="flex flex-col gap-6 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
       
       {/* HEADER */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center shadow-lg relative overflow-hidden">
+      <div id="draft-arena" className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center shadow-lg relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-rose-600/10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
           <Swords size={120} />
@@ -71,6 +73,23 @@ export default function DraftSimulatorTab() {
             Componi le squadre per simulare la fase di ban/pick. L'IA analizzerà le sinergie, i counter e calcolerà le probabilità di vittoria stimate!
           </p>
         </div>
+        
+        {/* Pulsante Condividi */}
+        {(alliedTeam.length > 0 || enemyTeam.length > 0) && (
+          <button 
+            onClick={async () => {
+              setIsSharing(true);
+              await captureElementAsImage('draft-arena', 'MLBB-Draft-Simulator');
+              setIsSharing(false);
+            }}
+            disabled={isSharing}
+            className="absolute top-4 left-4 z-20 px-3 py-1.5 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-colors border border-indigo-400/30 backdrop-blur-sm"
+            title="Scarica immagine per i Social"
+          >
+            {isSharing ? <Loader2 size={14} className="animate-spin" /> : <Share2 size={14} />} 
+            <span className="hidden sm:inline">{isSharing ? 'Salvataggio...' : 'Condividi Immagine'}</span>
+          </button>
+        )}
       </div>
 
       {/* ARENA */}
