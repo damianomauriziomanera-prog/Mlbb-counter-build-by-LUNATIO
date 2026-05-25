@@ -4195,9 +4195,12 @@ const renderSavedBuildsView = (isInline = false) => {
                     try {
                       if (Pip && typeof Pip.enterPip === 'function') {
                         await Pip.enterPip();
+                      } else {
+                        alert("Plugin Pip non caricato correttamente in React.");
                       }
-                    } catch (e) {
-                      console.log("PiP not supported or web environment");
+                    } catch (e: any) {
+                      alert("Errore PiP Nativo: " + e.message);
+                      console.log("PiP error", e);
                     }
                   }}
                   className="group flex items-center gap-1.5 px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-md transition-all cursor-pointer font-semibold text-xs active:scale-95 font-mono shadow-sm shadow-rose-500/10"
