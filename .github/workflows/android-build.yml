@@ -43,14 +43,13 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew assembleDebug > build_log.txt 2>&1 || (
-            echo "Build failed, committing log..."
-            cd ..
-            git config user.email "bot@lunatio.com"
-            git config user.name "Antigravity Bot"
-            cp android/build_log.txt .
-            git add build_log.txt
-            git commit -m "chore: upload build log"
-            git push origin HEAD:main
+            echo "::error::-- INIZIO ERRORE GRADLE --"
+            grep -A 15 -i "error:" build_log.txt > error_summary.txt || echo "" > error_summary.txt
+            grep -A 15 -i "FAILED" build_log.txt >> error_summary.txt || true
+            while IFS= read -r line; do
+              echo "::error::$line"
+            done < error_summary.txt
+            echo "::error::-- FINE ERRORE GRADLE --"
             exit 1
           )
 
