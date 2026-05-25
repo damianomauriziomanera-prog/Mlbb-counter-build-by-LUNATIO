@@ -5,7 +5,10 @@ import { SavedBuild } from '../types';
 
 // Login con Google
 export const loginWithGoogle = async (): Promise<User | null> => {
-  if (!auth || !googleProvider) return null;
+  if (!auth || !googleProvider) {
+    alert("Firebase non è configurato. Inserisci le API Key in src/lib/firebase.ts o nel file .env per abilitare il Cloud Save.");
+    return null;
+  }
   try {
     const result = await signInWithPopup(auth, googleProvider);
     return result.user;
