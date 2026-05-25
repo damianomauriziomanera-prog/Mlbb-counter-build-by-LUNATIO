@@ -323,8 +323,16 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
   if (isJungle) {
     recommendedSpell = SPELLS.RETRIBUTION;
   } else if (isRoam) {
-    if (isTrueTank) recommendedSpell = ccThreat >= 3 ? SPELLS.PURIFY : SPELLS.VENGEANCE;
-    else if (isPureAssassin) recommendedSpell = SPELLS.EXECUTE;
+    if (['tigreal', 'atlas', 'khufra', 'franco', 'minotaur', 'lolita'].includes(userHero.id)) {
+      recommendedSpell = SPELLS.FLICKER; // I tank da ingaggio hanno un bisogno vitale del Flicker
+    } else if (isSupport && ['estes', 'rafaela', 'angela', 'floryn', 'belerick'].includes(userHero.id)) {
+      recommendedSpell = SPELLS.REVITALIZE; // Cure extra e scudi per i supporti puri
+      if (ccThreat >= 3) recommendedSpell = SPELLS.PURIFY;
+    } else if (isTrueTank) {
+      recommendedSpell = ccThreat >= 3 ? SPELLS.PURIFY : SPELLS.VENGEANCE;
+    } else if (isPureAssassin || userHero.id === 'kadita') {
+      recommendedSpell = SPELLS.EXECUTE;
+    }
   } else {
     if (userHero.role.includes('Marksman')) {
       recommendedSpell = SPELLS.INSPIRE;
