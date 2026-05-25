@@ -1,0 +1,61 @@
+[
+  {
+    "version": "1.3.0",
+    "date": "22 Maggio 2026",
+    "title": "Enciclopedia Emblemi e Incantesimi",
+    "changes": [
+      "Aggiunta nuova tab per consultare tutti gli Emblemi e i relativi Talenti divisi per Tier.",
+      "Aggiunta enciclopedia degli Incantesimi di Battaglia con icone ufficiali."
+    ]
+  },
+  {
+    "version": "1.2.0",
+    "date": "22 Maggio 2026",
+    "title": "Meta di Maggio (S40) e Qualità dell'App",
+    "changes": [
+      "Introdotto nuovo sistema di Scraping live per le statistiche del Meta (Stagione 40 - Maggio 2026).",
+      "Corretti i bug visivi delle icone rotte: ora è presente un sistema di fallback grafico per Emblemi, Talenti e Incantesimi di Battaglia.",
+      "Risolto il problema di incoerenza del badge S/OFF tra la selezione Eroe e la selezione Nemici.",
+      "Implementata la ri-selezione dell'Eroe e del Meta indipendentemente dalla progressione del draft.",
+      "Aggiornate statistiche oggetti (Spada Divina, Talismano Incantato, Ali della Regina).",
+      "Risolto bug invio email (Segnala Bug) tramite caricamento dinamico del file .env."
+    ]
+  },
+  {
+    "version": "1.1.7",
+    "date": "20 Maggio 2026",
+    "title": "Separazione Architettura Patch & Live Telemetry",
+    "changes": [
+      "Separata logica di aggiornamento: App Patch (sviluppo dell'app) vs Game Patch (Moonton ufficiale).",
+      "Inserito pannello dinamico per il rilascio incrementale delle funzionalità dell'app.",
+      "Risolto un potenziale bug di sovrapposizione su schermi piccoli."
+    ]
+  },
+  {
+    "version": "1.1.6",
+    "date": "18 Maggio 2026",
+    "title": "Radar di Corsia & Filtri Avanzati",
+    "changes": [
+      "Implementato Radar di Corsia (Lane Meta) con distinzione tra scelte S-Tier e fuori meta.",
+      "Aggiunto pannello console hacker per osservare la visualizzazione telemetry live."
+    ]
+  },
+  {
+    "version": "1.1.5",
+    "date": "15 Maggio 2026",
+    "title": "Moonton Database Live API Sync",
+    "changes": [
+      "Introdotto pulsante di aggiornamento forzato della telemetria delle lobby competitive.",
+      "Allineati i coefficienti di calcolo delle build counter al valore della patch di transizione."
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "date": "10 Maggio 2026",
+    "title": "Inizializzazione Sandbox & Enciclopedia Oggetti",
+    "changes": [
+      "Progettata prima versione del builder di contromisure con supporto difese ibride.",
+      "Creata enciclopedia interattiva degli strumenti di gioco MLBB."
+    ]
+  }
+]

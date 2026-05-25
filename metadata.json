@@ -1,0 +1,6 @@
+{
+  "name": "MLBB Counter Builder",
+  "description": "Un'applicazione per calcolare la build perfetta per counterare i nemici in Mobile Legends: Bang Bang.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

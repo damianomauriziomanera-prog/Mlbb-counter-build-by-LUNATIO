@@ -1,0 +1,667 @@
+{
+  "lastUpdated": "2026-05-23T08:28:17.409Z",
+  "source": "Official MLBB Rank - 23/05/2026",
+  "heroes": {
+    "masha": {
+      "winRate": 56.42,
+      "pickRate": 0.11,
+      "banRate": 0.65
+    },
+    "gloo": {
+      "winRate": 55.47,
+      "pickRate": 0.57,
+      "banRate": 70.16
+    },
+    "gord": {
+      "winRate": 55.46,
+      "pickRate": 1.41,
+      "banRate": 2.21
+    },
+    "lolita": {
+      "winRate": 55.17,
+      "pickRate": 0.12,
+      "banRate": 1.49
+    },
+    "marcel": {
+      "winRate": 54.69,
+      "pickRate": 0.25,
+      "banRate": 81.96
+    },
+    "hanabi": {
+      "winRate": 54.5,
+      "pickRate": 3.38,
+      "banRate": 11.71
+    },
+    "sun": {
+      "winRate": 54.11,
+      "pickRate": 1.64,
+      "banRate": 35.47
+    },
+    "diggie": {
+      "winRate": 53.91,
+      "pickRate": 0.2,
+      "banRate": 12.04
+    },
+    "kaja": {
+      "winRate": 53.71,
+      "pickRate": 0.29,
+      "banRate": 8.65
+    },
+    "khufra": {
+      "winRate": 53.38,
+      "pickRate": 0.26,
+      "banRate": 2.82
+    },
+    "floryn": {
+      "winRate": 53.21,
+      "pickRate": 1.04,
+      "banRate": 34.38
+    },
+    "leomord": {
+      "winRate": 53.1,
+      "pickRate": 1.09,
+      "banRate": 11.41
+    },
+    "belerick": {
+      "winRate": 52.97,
+      "pickRate": 1.45,
+      "banRate": 8.17
+    },
+    "valir": {
+      "winRate": 52.97,
+      "pickRate": 1.04,
+      "banRate": 2.51
+    },
+    "silvanna": {
+      "winRate": 52.89,
+      "pickRate": 1.3,
+      "banRate": 3.04
+    },
+    "popol": {
+      "winRate": 52.87,
+      "pickRate": 0.28,
+      "banRate": 0.33
+    },
+    "minotaur": {
+      "winRate": 52.83,
+      "pickRate": 0.46,
+      "banRate": 7.12
+    },
+    "khaleed": {
+      "winRate": 52.82,
+      "pickRate": 0.37,
+      "banRate": 0.77
+    },
+    "terizla": {
+      "winRate": 52.8,
+      "pickRate": 0.68,
+      "banRate": 0.93
+    },
+    "hilda": {
+      "winRate": 52.62,
+      "pickRate": 1.04,
+      "banRate": 20.47
+    },
+    "argus": {
+      "winRate": 52.6,
+      "pickRate": 0.41,
+      "banRate": 1.36
+    },
+    "estes": {
+      "winRate": 52.42,
+      "pickRate": 0.66,
+      "banRate": 51.42
+    },
+    "benedetta": {
+      "winRate": 52.22,
+      "pickRate": 0.45,
+      "banRate": 0.82
+    },
+    "minsitthar": {
+      "winRate": 51.91,
+      "pickRate": 0.88,
+      "banRate": 23.26
+    },
+    "zhask": {
+      "winRate": 51.73,
+      "pickRate": 0.34,
+      "banRate": 0.42
+    },
+    "irithel": {
+      "winRate": 51.7,
+      "pickRate": 0.46,
+      "banRate": 0.3
+    },
+    "uranus": {
+      "winRate": 51.7,
+      "pickRate": 0.49,
+      "banRate": 0.92
+    },
+    "miya": {
+      "winRate": 51.68,
+      "pickRate": 2.74,
+      "banRate": 5.12
+    },
+    "melissa": {
+      "winRate": 51.67,
+      "pickRate": 0.65,
+      "banRate": 1.16
+    },
+    "atlas": {
+      "winRate": 51.64,
+      "pickRate": 0.46,
+      "banRate": 5.39
+    },
+    "zetian": {
+      "winRate": 51.61,
+      "pickRate": 2.03,
+      "banRate": 25.27
+    },
+    "rafaela": {
+      "winRate": 51.56,
+      "pickRate": 0.33,
+      "banRate": 2.67
+    },
+    "yve": {
+      "winRate": 51.48,
+      "pickRate": 0.1,
+      "banRate": 0.14
+    },
+    "freya": {
+      "winRate": 51.48,
+      "pickRate": 1.15,
+      "banRate": 20.44
+    },
+    "kadita": {
+      "winRate": 51.46,
+      "pickRate": 0.99,
+      "banRate": 8.06
+    },
+    "aamon": {
+      "winRate": 51.38,
+      "pickRate": 0.8,
+      "banRate": 8.02
+    },
+    "paquito": {
+      "winRate": 51.37,
+      "pickRate": 0.92,
+      "banRate": 2.05
+    },
+    "bane": {
+      "winRate": 51.33,
+      "pickRate": 0.32,
+      "banRate": 0.23
+    },
+    "fredrinn": {
+      "winRate": 51.32,
+      "pickRate": 0.7,
+      "banRate": 6.49
+    },
+    "carmilla": {
+      "winRate": 51.3,
+      "pickRate": 0.54,
+      "banRate": 1.48
+    },
+    "cyclops": {
+      "winRate": 51.28,
+      "pickRate": 0.79,
+      "banRate": 0.42
+    },
+    "suyou": {
+      "winRate": 51.28,
+      "pickRate": 2.01,
+      "banRate": 31.12
+    },
+    "edith": {
+      "winRate": 51.24,
+      "pickRate": 0.2,
+      "banRate": 0.1
+    },
+    "phoveus": {
+      "winRate": 51.15,
+      "pickRate": 0.66,
+      "banRate": 2.66
+    },
+    "aulus": {
+      "winRate": 50.96,
+      "pickRate": 0.3,
+      "banRate": 2.94
+    },
+    "hanzo": {
+      "winRate": 50.96,
+      "pickRate": 0.32,
+      "banRate": 2.88
+    },
+    "zhuxin": {
+      "winRate": 50.9,
+      "pickRate": 0.52,
+      "banRate": 28.01
+    },
+    "clint": {
+      "winRate": 50.87,
+      "pickRate": 0.82,
+      "banRate": 0.88
+    },
+    "baxia": {
+      "winRate": 50.86,
+      "pickRate": 0.16,
+      "banRate": 0.3
+    },
+    "ruby": {
+      "winRate": 50.86,
+      "pickRate": 0.46,
+      "banRate": 0.51
+    },
+    "vale": {
+      "winRate": 50.82,
+      "pickRate": 0.63,
+      "banRate": 0.37
+    },
+    "odette": {
+      "winRate": 50.8,
+      "pickRate": 0.73,
+      "banRate": 0.59
+    },
+    "guinevere": {
+      "winRate": 50.78,
+      "pickRate": 1.25,
+      "banRate": 33
+    },
+    "vexana": {
+      "winRate": 50.77,
+      "pickRate": 1.93,
+      "banRate": 1.69
+    },
+    "akai": {
+      "winRate": 50.69,
+      "pickRate": 0.53,
+      "banRate": 2.52
+    },
+    "brody": {
+      "winRate": 50.66,
+      "pickRate": 0.48,
+      "banRate": 0.53
+    },
+    "natan": {
+      "winRate": 50.66,
+      "pickRate": 0.37,
+      "banRate": 0.28
+    },
+    "natalia": {
+      "winRate": 50.57,
+      "pickRate": 0.29,
+      "banRate": 2.12
+    },
+    "badang": {
+      "winRate": 50.45,
+      "pickRate": 0.91,
+      "banRate": 1.12
+    },
+    "johnson": {
+      "winRate": 50.43,
+      "pickRate": 0.85,
+      "banRate": 2.7
+    },
+    "beatrix": {
+      "winRate": 50.2,
+      "pickRate": 0.73,
+      "banRate": 0.72
+    },
+    "thamuz": {
+      "winRate": 50.14,
+      "pickRate": 1.13,
+      "banRate": 4.44
+    },
+    "obsidia": {
+      "winRate": 50.13,
+      "pickRate": 0.86,
+      "banRate": 2.29
+    },
+    "kagura": {
+      "winRate": 50.12,
+      "pickRate": 0.63,
+      "banRate": 1.64
+    },
+    "moskov": {
+      "winRate": 50.08,
+      "pickRate": 0.96,
+      "banRate": 0.36
+    },
+    "aldous": {
+      "winRate": 50.07,
+      "pickRate": 0.35,
+      "banRate": 0.48
+    },
+    "ixia": {
+      "winRate": 50.03,
+      "pickRate": 0.85,
+      "banRate": 1.77
+    },
+    "julian": {
+      "winRate": 50.03,
+      "pickRate": 1.25,
+      "banRate": 4.12
+    },
+    "karrie": {
+      "winRate": 50.01,
+      "pickRate": 0.89,
+      "banRate": 3.77
+    },
+    "alice": {
+      "winRate": 50.01,
+      "pickRate": 0.79,
+      "banRate": 10.42
+    },
+    "yisunshin": {
+      "winRate": 49.97,
+      "pickRate": 1.48,
+      "banRate": 12.97
+    },
+    "lukas": {
+      "winRate": 49.96,
+      "pickRate": 0.34,
+      "banRate": 0.75
+    },
+    "harley": {
+      "winRate": 49.9,
+      "pickRate": 1.19,
+      "banRate": 71.31
+    },
+    "helcurt": {
+      "winRate": 49.88,
+      "pickRate": 0.84,
+      "banRate": 29.56
+    },
+    "alucard": {
+      "winRate": 49.85,
+      "pickRate": 0.59,
+      "banRate": 0.72
+    },
+    "saber": {
+      "winRate": 49.82,
+      "pickRate": 1,
+      "banRate": 22.74
+    },
+    "barats": {
+      "winRate": 49.6,
+      "pickRate": 0.13,
+      "banRate": 0.1
+    },
+    "claude": {
+      "winRate": 49.55,
+      "pickRate": 0.95,
+      "banRate": 0.53
+    },
+    "xborg": {
+      "winRate": 49.51,
+      "pickRate": 0.65,
+      "banRate": 4.25
+    },
+    "faramis": {
+      "winRate": 49.39,
+      "pickRate": 0.1,
+      "banRate": 0.82
+    },
+    "gusion": {
+      "winRate": 49.36,
+      "pickRate": 1.66,
+      "banRate": 12.42
+    },
+    "roger": {
+      "winRate": 49.32,
+      "pickRate": 0.31,
+      "banRate": 0.11
+    },
+    "cecilion": {
+      "winRate": 49.28,
+      "pickRate": 0.64,
+      "banRate": 0.23
+    },
+    "change": {
+      "winRate": 49.04,
+      "pickRate": 0.83,
+      "banRate": 0.61
+    },
+    "eudora": {
+      "winRate": 49.02,
+      "pickRate": 0.81,
+      "banRate": 2.48
+    },
+    "harith": {
+      "winRate": 48.95,
+      "pickRate": 0.63,
+      "banRate": 3.66
+    },
+    "angela": {
+      "winRate": 48.88,
+      "pickRate": 1.61,
+      "banRate": 7.48
+    },
+    "lylia": {
+      "winRate": 48.85,
+      "pickRate": 0.66,
+      "banRate": 1.94
+    },
+    "lapulapu": {
+      "winRate": 48.71,
+      "pickRate": 0.54,
+      "banRate": 1.01
+    },
+    "joy": {
+      "winRate": 48.66,
+      "pickRate": 0.23,
+      "banRate": 1.1
+    },
+    "chip": {
+      "winRate": 48.65,
+      "pickRate": 0.06,
+      "banRate": 3.09
+    },
+    "hylos": {
+      "winRate": 48.53,
+      "pickRate": 0.37,
+      "banRate": 1.22
+    },
+    "sora": {
+      "winRate": 48.5,
+      "pickRate": 0.82,
+      "banRate": 44.87
+    },
+    "hayabusa": {
+      "winRate": 48.41,
+      "pickRate": 0.89,
+      "banRate": 5.09
+    },
+    "lunox": {
+      "winRate": 48.38,
+      "pickRate": 0.3,
+      "banRate": 0.5
+    },
+    "wanwan": {
+      "winRate": 48.33,
+      "pickRate": 0.18,
+      "banRate": 0.32
+    },
+    "dyrroth": {
+      "winRate": 48.3,
+      "pickRate": 1.3,
+      "banRate": 1.18
+    },
+    "layla": {
+      "winRate": 48.21,
+      "pickRate": 1.1,
+      "banRate": 1.09
+    },
+    "yin": {
+      "winRate": 48.2,
+      "pickRate": 0.57,
+      "banRate": 3.12
+    },
+    "nana": {
+      "winRate": 48.15,
+      "pickRate": 1.64,
+      "banRate": 4.78
+    },
+    "jawhead": {
+      "winRate": 48.14,
+      "pickRate": 0.43,
+      "banRate": 0.39
+    },
+    "arlott": {
+      "winRate": 47.9,
+      "pickRate": 0.46,
+      "banRate": 0.63
+    },
+    "grock": {
+      "winRate": 47.9,
+      "pickRate": 0.64,
+      "banRate": 5.87
+    },
+    "cici": {
+      "winRate": 47.86,
+      "pickRate": 0.36,
+      "banRate": 1.56
+    },
+    "bruno": {
+      "winRate": 47.84,
+      "pickRate": 0.23,
+      "banRate": 0.15
+    },
+    "xavier": {
+      "winRate": 47.82,
+      "pickRate": 0.5,
+      "banRate": 0.32
+    },
+    "selena": {
+      "winRate": 47.77,
+      "pickRate": 1.25,
+      "banRate": 3.25
+    },
+    "yuzhong": {
+      "winRate": 47.76,
+      "pickRate": 1.33,
+      "banRate": 2.83
+    },
+    "kimmy": {
+      "winRate": 47.56,
+      "pickRate": 0.7,
+      "banRate": 0.67
+    },
+    "tigreal": {
+      "winRate": 47.54,
+      "pickRate": 2,
+      "banRate": 7.06
+    },
+    "nolan": {
+      "winRate": 47.52,
+      "pickRate": 0.27,
+      "banRate": 0.75
+    },
+    "aurora": {
+      "winRate": 47.5,
+      "pickRate": 0.4,
+      "banRate": 0.27
+    },
+    "novaria": {
+      "winRate": 47.5,
+      "pickRate": 0.77,
+      "banRate": 1.17
+    },
+    "zilong": {
+      "winRate": 47.3,
+      "pickRate": 0.94,
+      "banRate": 0.71
+    },
+    "pharsa": {
+      "winRate": 47.27,
+      "pickRate": 0.71,
+      "banRate": 0.48
+    },
+    "alpha": {
+      "winRate": 47.13,
+      "pickRate": 1.13,
+      "banRate": 0.75
+    },
+    "gatotkaca": {
+      "winRate": 47.1,
+      "pickRate": 0.73,
+      "banRate": 0.54
+    },
+    "luo_yi": {
+      "winRate": 46.95,
+      "pickRate": 0.17,
+      "banRate": 0.1
+    },
+    "chou": {
+      "winRate": 46.7,
+      "pickRate": 1.08,
+      "banRate": 3.26
+    },
+    "martis": {
+      "winRate": 46.59,
+      "pickRate": 0.6,
+      "banRate": 0.65
+    },
+    "lesley": {
+      "winRate": 46.55,
+      "pickRate": 1.85,
+      "banRate": 8.25
+    },
+    "karina": {
+      "winRate": 46.37,
+      "pickRate": 0.55,
+      "banRate": 2.11
+    },
+    "kalea": {
+      "winRate": 46.21,
+      "pickRate": 0.35,
+      "banRate": 2.81
+    },
+    "ling": {
+      "winRate": 45.6,
+      "pickRate": 0.19,
+      "banRate": 0.17
+    },
+    "franco": {
+      "winRate": 44.5,
+      "pickRate": 1.28,
+      "banRate": 6.82
+    },
+    "lancelot": {
+      "winRate": 43.39,
+      "pickRate": 0.66,
+      "banRate": 1.06
+    },
+    "valentina": {
+      "winRate": 43.38,
+      "pickRate": 0.18,
+      "banRate": 0.42
+    },
+    "balmond": {
+      "winRate": 43.34,
+      "pickRate": 0.29,
+      "banRate": 0.25
+    },
+    "esmeralda": {
+      "winRate": 43.33,
+      "pickRate": 0.38,
+      "banRate": 0.65
+    },
+    "mathilda": {
+      "winRate": 43.31,
+      "pickRate": 0.1,
+      "banRate": 0.57
+    },
+    "fanny": {
+      "winRate": 42.81,
+      "pickRate": 0.61,
+      "banRate": 3.18
+    },
+    "granger": {
+      "winRate": 42.51,
+      "pickRate": 1.45,
+      "banRate": 3.22
+    }
+  },
+  "heroCount": 132
+}
