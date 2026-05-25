@@ -134,6 +134,7 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
       if (item.id === 'corrosion_scythe') { score += 100; reason = "Rallenta il nemico e scala pesantemente la tua Attack Speed."; }
       if (item.id === 'demon_hunter_sword') { score += 90; reason = "Divora gli HP nemici a ogni colpo, eccellente contro chiunque."; }
       if (item.id === 'golden_staff') { score += 80; reason = "Massimizza gli effetti sul colpo triplicandone l'efficacia."; }
+      if (item.id === 'malefic_gun') { score += 85; reason = "Aumenta la tua gittata permettendoti di colpire da distanze di sicurezza letali."; }
     }
     
     if (userHero.role.includes('Marksman') && !isAttackSpeedHero && !isCritHero) {
@@ -147,24 +148,28 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
       if (item.id === 'genius_wand') { score += 90; reason = "Riduce la difesa magica nemica, vitale per shottare i fragili."; }
       if (item.id === 'holy_crystal') { score += 85; reason = "Massiccio incremento in % del tuo potere magico totale."; }
       if (item.id === 'blood_wings') { score += 80; reason = "Picco di danni late-game e uno scudo salvavita."; }
+      if (item.id === 'sky_piercer') { score += 95; reason = "Ti garantisce l'uccisione immediata sui nemici a cui hai tolto quasi tutta la vita col tuo burst."; }
     }
 
     if (isDpsMage) {
       if (item.id === 'enchanted_talisman') { score += 100; reason = "Mana infinito e riduzione ricarica per spammare abilità."; }
       if (item.id === 'ice_queen_wand') { score += 90; reason = "Rallentamento costante per mantenere i nemici sotto il tuo DPS."; }
       if (item.id === 'glowing_wand') { score += 85; reason = "Danno percentuale continuato basato sugli HP massimi del bersaglio."; }
+      if (item.id === 'starlium_scythe') { score += 80; reason = "Fornisce danni puri costanti se usi gli attacchi base tra una skill e l'altra."; }
     }
 
     if (isPureAssassin || (isPhysicalHero && userHero.role.includes('Assassin'))) {
       if (item.id === 'hunter_strike') { score += 100; reason = "Velocità di movimento e penetrazione fisica per assalti fulminei."; }
       if (item.id === 'heptaseas') { score += 90; reason = "Danno extra vitale per il primo colpo da un'imboscata."; }
       if (item.id === 'blade_of_despair') { score += 80; reason = "Assicura letalità assoluta sui bersagli con HP dimezzati."; }
+      if (item.id === 'sky_piercer') { score += 110; reason = "L'arma definitiva per gli assassini: esegue infallibilmente i bersagli con HP bassi."; }
     }
 
     if (isSustainFighter) {
       if (item.id === 'war_axe') { score += 100; reason = "Eccelle negli scontri prolungati fornendo danni puri e sustain."; }
       if (item.id === 'oracle') { score += 90; reason = "Amplifica enormemente ogni tua fonte di cura o scudo."; }
       if (item.id === 'hunter_strike') { score += 80; reason = "Mantiene l'avversario a portata durante gli inseguimenti."; }
+      if (item.id === 'great_dragon_spear' && userHero.counterTags.some(t => /dash|mobility|jump/i.test(t))) { score += 85; reason = "Aumenta vertiginosamente la tua mobilità dopo aver usato l'Ultimate."; }
     }
 
     if (isSupport) {
@@ -175,15 +180,14 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
 
     // Threat Adjustments (Dynamic Context)
     if (highRegenThreat >= 1 && isAntiHeal) {
-      score += 150; // Massima priorità se c'è rigenerazione
-      if (item.id === 'dominance_ice' && (isTrueTank || isSupport || isSustainFighter)) {
-        reason = "Countera totalmente la rigenerazione e velocità d'attacco nemica da vicino.";
+      if (item.id === 'dominance_ice' && !isSquishy) {
+        score += 180; reason = "Priorità assoluta: countera totalmente la rigenerazione e velocità d'attacco nemica da vicino.";
       } else if (item.id === 'necklace_of_durance' && isMagicHero) {
-        reason = "Taglia le cure nemiche del 50% applicando danni magici.";
+        score += 150; reason = "Taglia le cure nemiche del 50% applicando danni magici ad area.";
       } else if (item.id === 'sea_halberd' && isPhysicalHero) {
-        reason = "Anti-cura letale e danni extra contro bersagli con HP alti.";
+        score += 150; reason = "Anti-cura letale e danni extra contro bersagli con HP alti.";
       } else {
-        score -= 200; // Penalità se un mago cerca Sea Halberd ecc.
+        score -= 500; // Penalità severa se un mago cerca Sea Halberd o uno squishy cerca Dominance
       }
     }
 
@@ -194,25 +198,36 @@ export function calculateBuild(userHero: Hero, lane: Lane, enemies: Hero[]): Rec
       if (item.id === 'wishing_lantern' && isMagicHero) { score += 80; reason = "Punisce severamente gli avversari che possiedono troppi HP massimi."; }
     }
 
+    // TANK / SUPPORT GENERAL DEFENSES
+    if ((isTrueTank || isSupport) && magDamageThreat >= 1 && isDefense) {
+       if (item.id === 'athenas_shield') { score += 75; reason = "Aumenta la resistenza generale ai danni magici avversari."; }
+       if (item.id === 'radiant_armor') { score += 70; reason = "Scudo difensivo contro i danni magici prolungati."; }
+    }
+    
+    if ((isTrueTank || isSupport) && physDamageThreat >= 1 && isDefense) {
+       if (item.id === 'antique_cuirass') { score += 75; reason = "Armatura base essenziale per reggere i danni fisici nemici."; }
+       if (item.id === 'blade_armor' && autoAttackThreat >= 1) { score += 80; reason = "Fondamentale per riflettere i colpi dei tiratori fisici."; }
+    }
+
     if (burstMagThreat >= 1 && isDefense) {
-      if (item.id === 'athenas_shield' && !isSquishy) { score += 90; reason = "Protezione salvavita contro il burst e l'oneshot magico."; }
+      if (item.id === 'athenas_shield' && !isSquishy) { score += 120; reason = "Protezione salvavita contro il burst e l'oneshot magico."; }
       if (item.id === 'rose_gold_meteor' && isPhysicalHero && isSquishy) { score += 120; reason = "Fornisce uno scudo magico d'emergenza mantenendo il massimo output offensivo contro il burst."; }
       if (item.id === 'winter_crown' && isMagicHero && isSquishy) { score += 120; reason = "Ti rende intoccabile annullando completamente il burst magico letale."; }
     }
     
     if (magDamageThreat >= 2 && isDefense) {
-      if (item.id === 'radiant_armor' && !isSquishy) { score += 85; reason = "Riduce costantemente i danni magici continuati (DPS)."; }
+      if (item.id === 'radiant_armor' && !isSquishy) { score += 110; reason = "Riduce costantemente i danni magici continuati (DPS)."; }
     }
 
     if (burstPhysThreat >= 1 && isDefense) {
-      if (item.id === 'antique_cuirass' && !isSquishy) { score += 85; reason = "Riduce il potere d'attacco degli eroi fisici basati sulle abilità."; }
+      if (item.id === 'antique_cuirass' && !isSquishy) { score += 110; reason = "Riduce il potere d'attacco degli eroi fisici basati sulle abilità."; }
       if (item.id === 'wind_of_nature' && userHero.role.includes('Marksman')) { score += 120; reason = "L'immunità fisica temporanea è l'unica via per sopravvivere agli Assassini fisici."; }
       if (item.id === 'winter_crown' && isMagicHero && isSquishy) { score += 120; reason = "Blocca completamente gli assalti fulminei degli Assassini o Combattenti."; }
     }
 
     if (autoAttackThreat >= 1 && isDefense) {
-      if (item.id === 'blade_armor' && !isSquishy) { score += 85; reason = "Riflette il danno dei tiratori avversari rallentandoli."; }
-      if (item.id === 'dominance_ice' && !isSquishy) { score += 80; reason = "Rallenta drammaticamente la velocità d'attacco di chi ti sta vicino."; }
+      if (item.id === 'blade_armor' && !isSquishy) { score += 110; reason = "Riflette il danno dei tiratori avversari rallentandoli."; }
+      if (item.id === 'dominance_ice' && !isSquishy) { score += 110; reason = "Rallenta drammaticamente la velocità d'attacco di chi ti sta vicino."; }
     }
 
     // Generic fallback scores to ensure 5 items are always picked
