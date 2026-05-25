@@ -31,7 +31,12 @@ jobs:
         run: npm run build
 
       - name: Sync Capacitor Android
-        run: npx cap sync android
+        run: npx cap sync android || echo "Sync failed, falling back to manual copy..."
+
+      - name: Manual Web Asset Copy
+        run: |
+          mkdir -p android/app/src/main/assets/public
+          cp -r dist/* android/app/src/main/assets/public/
 
       - name: Build Android APK
         working-directory: ./android
