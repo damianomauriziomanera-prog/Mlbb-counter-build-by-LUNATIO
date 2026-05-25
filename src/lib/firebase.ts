@@ -6,7 +6,7 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 // Inserisci qui i dati del tuo progetto Firebase (prendili da console.firebase.google.com)
 // Per sicurezza, in produzione dovresti usare variabili d'ambiente (import.meta.env.VITE_FIREBASE_API_KEY)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBohpmm2HaaSs4MFTxLifUvxj72GEEmifk",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBohpmm2HaaSs4MFTxCifUvxj72GEEmifk",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "mlbb-counter-build.firebaseapp.com",
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "mlbb-counter-build",
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "mlbb-counter-build.firebasestorage.app",
