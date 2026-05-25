@@ -129,7 +129,7 @@ export function MiniDraftMode({
             {/* Emblema & Spell */}
             <div className="flex flex-col gap-0.5 border-r border-slate-800 pr-1 mr-0.5">
               <div className="w-6 h-6 rounded-full overflow-hidden border border-amber-500">
-                 <ImageWithFallback src={calculatedBuild.emblem.iconUrl} alt="Emblem" type="emblem" className="w-full h-full object-cover" />
+                 <ImageWithFallback src={calculatedBuild.emblem.iconUrl} alt="Emblem" type="emblem" id={calculatedBuild.emblem.id} className="w-full h-full object-cover" />
               </div>
               <div className="w-6 h-6 rounded border border-slate-700">
                  <ImageWithFallback src={calculatedBuild.spell.iconUrl} alt="Spell" type="spell" id={calculatedBuild.spell.id} className="w-full h-full object-cover" />
