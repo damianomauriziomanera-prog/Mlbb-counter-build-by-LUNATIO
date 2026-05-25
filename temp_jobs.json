@@ -1,0 +1,137 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 77670057272,
+      "run_id": 26387764612,
+      "workflow_name": "Android APK Cloud Build",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/damianomauriziomanera-prog/Mlbb-counter-build-by-LUNATIO/actions/runs/26387764612",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSjT2A88AAAASFX8FOA",
+      "head_sha": "3ed3ae2c0abdaffb874e6d074429931be0ec12a8",
+      "url": "https://api.github.com/repos/damianomauriziomanera-prog/Mlbb-counter-build-by-LUNATIO/actions/jobs/77670057272",
+      "html_url": "https://github.com/damianomauriziomanera-prog/Mlbb-counter-build-by-LUNATIO/actions/runs/26387764612/job/77670057272",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-05-25T06:56:57Z",
+      "started_at": "2026-05-25T06:56:59Z",
+      "completed_at": "2026-05-25T06:57:34Z",
+      "name": "build-android",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-05-25T06:57:00Z",
+          "completed_at": "2026-05-25T06:57:03Z"
+        },
+        {
+          "name": "Checkout Code",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-05-25T06:57:03Z",
+          "completed_at": "2026-05-25T06:57:04Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-05-25T06:57:04Z",
+          "completed_at": "2026-05-25T06:57:09Z"
+        },
+        {
+          "name": "Setup Java",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-05-25T06:57:09Z",
+          "completed_at": "2026-05-25T06:57:16Z"
+        },
+        {
+          "name": "Install Dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-05-25T06:57:16Z",
+          "completed_at": "2026-05-25T06:57:26Z"
+        },
+        {
+          "name": "Build Web App",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-05-25T06:57:26Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Sync Capacitor Android",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 7,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Build Android APK",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Upload APK",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Post Setup Java",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 17,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Post Checkout Code",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-05-25T06:57:31Z",
+          "completed_at": "2026-05-25T06:57:31Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/damianomauriziomanera-prog/Mlbb-counter-build-by-LUNATIO/check-runs/77670057272",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000002,
+      "runner_name": "GitHub Actions 1000000002",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
