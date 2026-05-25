@@ -1,0 +1,6 @@
+{
+  "appId": "com.lunatio.mlbbcounter",
+  "appName": "MLBBCounter",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
